@@ -1,6 +1,6 @@
 # authentication-react
 
-Authentication React with React Router, React Transition Group & Firebase...
+Authentication React with React Router, React Transition Group & Firebase
 
 ## Getting started
 
