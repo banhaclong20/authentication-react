@@ -24,7 +24,7 @@ class Login extends Component {
       .then(() => this.props.history.push('/'))
       .catch(error => {
         this.setState({
-          connect_error: error
+          error
         })
       });
 
@@ -71,9 +71,9 @@ class Login extends Component {
           value={this.state.password}
           onChange={e => this.change(e)} 
         />
-        { this.state.error && 
+        {this.state.error && 
           <div className="alert alert-danger mt-4" role="alert">
-            Something wrong with credential
+            <small>Something wrong with credential</small>
           </div>
         }  
         <button className="w-100 btn btn-primary mt-4" onClick={this.handleSignIn}>Sign In</button>

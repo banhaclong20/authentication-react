@@ -1,10 +1,14 @@
 import React from 'react';
 import '../../styles/common.css';
 
+import checkAuthorization from '../auth/checkAuthorization';
+
 const Home = () => (
   <div className="section">
     You are at the homepage!
   </div>  
 );
 
-export default Home;
+const authCondition = (isLoggedIn) => !!isLoggedIn;
+
+export default checkAuthorization(authCondition)(Home);

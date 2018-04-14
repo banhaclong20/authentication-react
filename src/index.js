@@ -1,21 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 
-import Wrapper from './components/Wrapper';
-import Header from './components/Header';
+import App from './components/app';
+import withAuthentication from './components/auth/withAuthentication';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/styles/common.css';
 import "./global-styles";
 
-const App = () => (
-  <Router>
-    <div>
-      <Header />
-      <Wrapper />
-    </div>  
-  </Router>  
-)
+const AppWithAuth = withAuthentication(App);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<AppWithAuth />, document.getElementById('root'));
