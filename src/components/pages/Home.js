@@ -4,9 +4,11 @@ import '../../styles/common.css';
 import checkAuthorization from '../auth/checkAuthorization';
 
 const Home = () => (
-  <div className="section">
-    You are at the homepage!
-  </div>  
+  <div className="transition-group">
+    <div className="section">
+      You are at the homepage!
+    </div>  
+  </div>
 );
 
 const authCondition = (isLoggedIn) => !!isLoggedIn;

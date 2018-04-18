@@ -19,6 +19,8 @@ const HeaderAuth = () =>
   <Nav>
     <div className="logo">
       <Link to="/"><div><img className="logo" src={logo} alt="RumbleOn logo" /></div></Link>
+      <Link to="/sell-vehicle" className="sell-menu"><span>Sell</span></Link>
+      <Link to="/buy-vehicle" className="sell-menu"><span>Buy</span></Link>
     </div>
     <div className="nav">
       <ul>
@@ -39,6 +41,8 @@ const HeaderNonAuth = () =>
   <Nav>
     <div className="logo">
       <Link to="/"><div><img className="logo" src={logo} alt="RumbleOn logo" /></div></Link>
+      <Link to="/sell-vehicle" className="sell-menu"><span>Sell</span></Link>
+      <Link to="/buy-vehicle" className="sell-menu"><span>Buy</span></Link>
     </div>
     <div className="nav">
       <ul>
@@ -62,10 +66,34 @@ const Nav = styled.div`
   .logo {
     color: #FFF;
     margin-left: 10px;
+    margin-right: 2em;
     font-size: 1.2em;
+    display: flex;
+    flex-direction: row;
 
     a {
       text-decoration: none;
+    }
+
+    .sell-menu {
+      color: #FFF;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      margin-left: 1em;
+
+      span {
+        border: 1px solid #1e614d;
+        padding: 6px 30px;
+        background: #0b8863;
+        border-radius: 20px;
+        font-size: 0.85em;
+        letter-spacing: .1em;
+        min-width: 120px;
+        text-align: center;
+      }
     }
   }
 

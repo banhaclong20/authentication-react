@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import TextField from '../ui/TextField';
 import OptionSelect from '../ui/OptionSelect';
 
-import { auth } from '../../firebase/';
+import { auth, db } from '../../firebase/';
 
 const INITIAL_STATE = {
   first_name: '',
@@ -21,14 +21,14 @@ const INITIAL_STATE = {
   confirm_password_error: '',
   zip_code: '',
   zip_code_error: '',
-  connect_error: '',
+  error: '',
 }
 
 class CreateAccount extends Component {
 
   state = { 
     currentStep: 0,
-    userType: null,
+    userType: '',
     ...INITIAL_STATE 
   };
 
@@ -48,23 +48,22 @@ class CreateAccount extends Component {
   }
 
   SubmitForm = (e) => {
-    const { email, password } = this.state;
+    const { userType, first_name, last_name, email, phone_number, zip_code, password } = this.state;
     const err = this.validateForm();
     const { history } = this.props;
 
     if (!err) {
-    auth.createUserWithEmailPassword(email, password)
-      .then(authUser => {
-        this.setState(() => ({
-          ...INITIAL_STATE
-        }));
-      })
-      .then(() => history.push('./'))
-      .catch(error => {
-        this.setState({
-          connect_error: error
+      auth.createUserWithEmailPassword(email, password)
+        .then(authUser => {
+          db.createUser(authUser.uid, userType, first_name, last_name, email, phone_number, zip_code)
+            .then(() => {
+              this.setState(() => ({ ...INITIAL_STATE }));
+              history.push('./');
+            })
         })
-      });
+        .catch(error => {
+          this.setState(() => ({ error }));
+        });
     }  
 
     e.preventDefault();
@@ -270,6 +269,13 @@ class CreateAccount extends Component {
                   />
 								</div>
               </div>
+
+              {this.state.error && 
+                <div className="alert alert-danger mt-4" role="alert">
+                  <small>{this.state.error}</small>
+                </div>
+              }  
+
 							<div className="text-center">
 								<button className="btn btn-outline-secondary mr-2 mt-4 btn-half-width" onClick={this.goBackStep}>Go Back</button>
 								<button className="btn btn-primary mt-4 btn-half-width" onClick={e => this.SubmitForm(e)}>Submit</button>

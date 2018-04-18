@@ -13,8 +13,14 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
+const db = firebase.database();
 const auth = firebase.auth();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
 
 export {
+  db,
   auth,
+  googleProvider,
+  facebookProvider,
 }

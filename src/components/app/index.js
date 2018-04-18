@@ -11,13 +11,13 @@ import AccountDetail from '../account';
 import PasswordChange from '../pages/PasswordChange';
 
 import withAuthentication from '../auth/withAuthentication';
+import SellVehicle from '../pages/SellVehicle';
 
 const App = () => (
   <Router>
     <div>
       <Header />
       <Wrapper>
-        <div className="transition-group">
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
@@ -25,8 +25,8 @@ const App = () => (
             <Route path="/reset" component={ResetPass} />
             <Route path="/account-detail" component={AccountDetail} />
             <Route path="/password-change" component={PasswordChange} />
-          </Switch>
-        </div>      
+            <Route path="/sell-vehicle" component={SellVehicle} />
+          </Switch>  
       </Wrapper>  
     </div>  
   </Router>  

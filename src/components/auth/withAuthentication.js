@@ -30,6 +30,8 @@ const withAuthentication = (Component) =>
         <AuthUserContext.Provider value={isLoggedIn}>
           <Component />
         </AuthUserContext.Provider>
+
+        
       );
     }
   }

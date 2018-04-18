@@ -1,4 +1,4 @@
-import { auth } from './firebase';
+import { auth, googleProvider, facebookProvider } from './firebase';
 
 // Sign In
 export const signInWithEmailPassword = (email, password) => 
@@ -19,3 +19,9 @@ export const passwordReset = (email) =>
 // Password Change 
 export const passwordUpdate = (password) => 
   auth.currentUser.updatePassword(password);
+
+export const loginWithGoogle = () =>
+  auth.signInWithPopup(googleProvider);
+
+export const loginWithFacebook = () =>
+  auth.signInWithPopup(facebookProvider);

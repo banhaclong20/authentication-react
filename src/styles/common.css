@@ -33,9 +33,9 @@ h6 {
 }
 
 .form-title {
-  font-size: 1.5rem;
-  font-weight: 300;
-  letter-spacing: 2px;
+  font-family: 'Oswald', Roboto;
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
   text-transform: uppercase;
 }
@@ -244,4 +244,227 @@ h6 {
     z-index: 0;
     top: 2rem;
   }
+}
+
+.social-button {
+  background-position: 25px 0px;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  font-size: .6em;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  width: 100%;
+  border-radius: 3px;
+  margin: 10px 5px;
+  outline: rgb(255, 255, 255) none 0px;
+  padding-left: 10%;
+  transition: all 0.2s cubic-bezier(0.72, 0.01, 0.56, 1) 0s;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+#facebook-connect {
+  background: rgb(255, 255, 255) url('../assets/facebook.svg') no-repeat scroll 5px 0px / 20px 40px padding-box border-box;
+  border: 1px solid rgb(60, 90, 154);
+}
+
+#facebook-connect:hover {
+  text-decoration: none !important;
+  border-color: rgb(60, 90, 154);
+  background: rgb(60, 90, 154) url('../assets/facebook-white.svg') no-repeat scroll 5px 0px / 20px 40px padding-box border-box;
+  -webkit-transition: all .8s ease-out;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease-out;
+}
+
+#facebook-connect span {
+  box-sizing: border-box;
+  color: rgb(60, 90, 154);
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  border: 0px none rgb(255, 255, 255);
+  outline: rgb(255, 255, 255) none 0px;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+#facebook-connect:hover span {
+  color: #FFF;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+#google-connect {
+  background: rgb(255, 255, 255) url('../assets/google-plus.png') no-repeat scroll 5px 0px / 30px 30px padding-box border-box;
+  border: 1px solid rgb(220, 74, 61);
+  background-position-y: center;
+}
+
+#google-connect:hover {
+  text-decoration: none !important;
+  border-color: rgb(220, 74, 61);
+  background: rgb(220, 74, 61) url('../assets/google-plus-white.png') no-repeat scroll 5px 0px / 30px 30px padding-box border-box;
+  -webkit-transition: all .8s ease-out;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease-out;
+  background-position-y: center;
+}
+
+#google-connect span {
+  box-sizing: border-box;
+  color: rgb(220, 74, 61);
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  border: 0px none rgb(220, 74, 61);
+  outline: rgb(255, 255, 255) none 0px;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+#google-connect:hover span {
+  color: #FFF;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.or {
+	display: block;
+	width: 100%;
+	height: 1px;
+	border-bottom: 1px solid #dee3e4;
+	position: relative;
+	margin: 20px 0;
+}
+
+.or:before {
+	content: 'or';
+	width: 40px;
+	height: 18px;
+	position: absolute;
+	top: -5px;
+	right: calc(50% - 20px);
+	background-color: #fff;
+	text-align: center;
+	line-height: 10px;
+	color: #555
+}
+
+.section-step label {
+  display: none;
+}
+
+.radio-container label,
+.note-container label {
+  display: inline-block !important;
+  margin-right: 3em;
+  font-size: .9em;
+}
+
+.section-step .custom-select {
+  color: #9a9a9a;
+  font-size: .9em;
+}
+
+.sell-page svg {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.step-tittle {
+  background: #FFF;
+  padding: 10px 10px 12px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2em 0;
+  border: 1px solid #DDD;
+  border-radius: 20px;
+}
+
+.step-content {
+  padding: 2px 20px 10px;
+  background: #f7f7f7;
+  margin-bottom: 2em;
+  border-radius: 5px;
+}
+
+.step-span  {
+  font-size: .9em;
+}
+
+.step-span span {
+  vertical-align: middle;
+}
+
+.number {
+  background: #464645;
+  padding: 2px 7px;
+  margin-right: 5px;
+  color: #FFF;
+  border-radius: 50%;
+}
+
+.btn-primary {
+  color: #fff;
+  border-color: #5CBE7F !important;
+  background-color: #5CBE7F !important;
+  min-width: 140px;
+  text-align: center;
+}
+
+.rc-slider-track {
+  background-color: #0D6D52 !important;
+}
+
+.rc-slider-dot-active {
+  border-color: #0D6D52 !important;
+}
+
+.rc-slider-handle {
+  border: solid 2px #0D6D52 !important;
+}
+
+.alert-vin {
+  color: #0d6d51;
+  background-color: #eaefeb;
+  border-color: #d7ded9;
+}
+
+.custom-link {
+  color: #0d6d51;
+  font-weight: bold;
+  border-bottom: 1px solid;
+}
+
+.custom-link:hover {
+  color: #05c48e;
+  text-decoration: none !important;
 }
