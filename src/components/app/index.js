@@ -7,6 +7,7 @@ import Login from '../pages/Login';
 import CreateAccount from '../pages/CreateAccount';
 import ResetPass from '../pages/ResetPassword';
 import Header from '../header';
+import Footer from '../footer';
 import AccountDetail from '../account';
 import PasswordChange from '../pages/PasswordChange';
 
@@ -17,7 +18,7 @@ const App = () => (
   <Router>
     <div>
       <Header />
-      <Wrapper>
+        <Wrapper>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
@@ -27,7 +28,8 @@ const App = () => (
             <Route path="/password-change" component={PasswordChange} />
             <Route path="/sell-vehicle" component={SellVehicle} />
           </Switch>  
-      </Wrapper>  
+        </Wrapper>
+      <Footer /> 
     </div>  
   </Router>  
 );

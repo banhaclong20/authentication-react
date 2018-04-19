@@ -61,7 +61,6 @@ const Nav = styled.div`
   display: flex;
   align-items: center;
   background-color: #0D6D52;
-  border-bottom: 1px solid #e0e0e0;
 
   .logo {
     color: #FFF;

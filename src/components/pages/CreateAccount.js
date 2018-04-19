@@ -154,135 +154,137 @@ class CreateAccount extends Component {
     console.log(this.state);
 
     return (
-      <div className="form__wrapper active transition-in">
-       <div className="fade-wrapper">
-					{currentStep === 0 &&
-						<div className="text-center">
-							<h2 className="form-title mb-4">Register</h2>
-							<p>Are you a...</p>
-							<div className="form-row mt-4 mb-4">
-								<div className="col-12 col-md-6">
-                  <OptionSelect 
-                    label="Customer" 
-                    selected={userType === 'customer'} 
-                    onClick={() => { this.setUserType('customer'); }} 
-                  />
-								</div>
-								<div className="col-12 col-md-6">
-                  <OptionSelect 
-                    label="Dealer" 
-                    selected={userType === 'dealer'} 
-                    onClick={() => { this.setUserType('dealer'); }} 
-                  />
-								</div>
-							</div>
-              <button 
-                className="btn btn-primary btn-block mt-4" 
-                onClick={this.goToNextStep}
-              >
-                Continue
-              </button>
-						</div>
-					}
-					{currentStep === 1 &&
-						<div>
-							<h2 className="form-title">Register</h2>
-              <h6 className="text-center">Sign Up to Use All Our Exclusive Services</h6>
-							<div className="row">
-								<div className="col">
-                  <TextField 
-                    className={`${this.state.first_name_error ? "is-invalid" : ""}`} 
-                    id="first_name" 
-                    placeholder="First Name" 
-                    value={this.state.first_name}
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.first_name_error}
-                  />
-								</div>
-                <div className="col">
-                  <TextField 
-                    className={`${this.state.last_name_error ? "is-invalid" : ""}`} 
-                    id="last_name" 
-                    placeholder="Last Name" 
-                    value={this.state.last_name}
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.last_name_error}
-                  />
-								</div>
-              </div>
-              <div className="row"> 
-                <div className="col">
-                  <TextField 
-                    className={`${this.state.phone_number_error ? "is-invalid" : ""}`} 
-                    id="phone_number" 
-                    placeholder="Phone Number"
-                    value={this.state.phone_number} 
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.phone_number_error}
-                  />
-								</div>
-								<div className="col">
-                  <TextField 
-                    className={`${this.state.email_error ? "is-invalid" : ""}`}
-                    id="email" 
-                    type="email"
-                    placeholder="Email" 
-                    value={this.state.email} 
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.email_error}
+      <div className="layout-page">
+        <div className="form__wrapper active transition-in">
+        <div className="fade-wrapper">
+            {currentStep === 0 &&
+              <div className="text-center">
+                <h2 className="form-title mb-4">Register</h2>
+                <p>Are you a...</p>
+                <div className="form-row mt-4 mb-4">
+                  <div className="col-12 col-md-6">
+                    <OptionSelect 
+                      label="Customer" 
+                      selected={userType === 'customer'} 
+                      onClick={() => { this.setUserType('customer'); }} 
                     />
-								</div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <TextField 
-                    className={`${this.state.password_error ? "is-invalid" : ""}`}
-                    id="password" 
-                    type="password"
-                    placeholder="Password" 
-                    value={this.state.password}
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.password_error}
-                  />
-								</div>
-                <div className="col">
-                  <TextField 
-                    className={`${this.state.confirm_password_error ? "is-invalid" : ""}`}
-                    id="confirm_password" 
-                    type="password"
-                    placeholder="Confirm Password" 
-                    value={this.state.confirm_password}
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.confirm_password_error}
-                  />
-								</div>
-							</div>
-              <div className="row">
-                <div className="col">
-                  <TextField
-                    className={`${this.state.zip_code_error ? "is-invalid" : ""}`} 
-                    id="zip_code" 
-                    placeholder="Zip Code" 
-                    value={this.state.zip_code}
-                    onChange={e => this.change(e)} 
-                    errorText={this.state.zip_code_error}
-                  />
-								</div>
-              </div>
-
-              {this.state.error && 
-                <div className="alert alert-danger mt-4" role="alert">
-                  <small>{this.state.error}</small>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <OptionSelect 
+                      label="Dealer" 
+                      selected={userType === 'dealer'} 
+                      onClick={() => { this.setUserType('dealer'); }} 
+                    />
+                  </div>
                 </div>
-              }  
+                <button 
+                  className="btn btn-primary btn-block mt-4" 
+                  onClick={this.goToNextStep}
+                >
+                  Continue
+                </button>
+              </div>
+            }
+            {currentStep === 1 &&
+              <div>
+                <h2 className="form-title">Register</h2>
+                <h6 className="text-center">Sign Up to Use All Our Exclusive Services</h6>
+                <div className="row">
+                  <div className="col">
+                    <TextField 
+                      className={`${this.state.first_name_error ? "is-invalid" : ""}`} 
+                      id="first_name" 
+                      placeholder="First Name" 
+                      value={this.state.first_name}
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.first_name_error}
+                    />
+                  </div>
+                  <div className="col">
+                    <TextField 
+                      className={`${this.state.last_name_error ? "is-invalid" : ""}`} 
+                      id="last_name" 
+                      placeholder="Last Name" 
+                      value={this.state.last_name}
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.last_name_error}
+                    />
+                  </div>
+                </div>
+                <div className="row"> 
+                  <div className="col">
+                    <TextField 
+                      className={`${this.state.phone_number_error ? "is-invalid" : ""}`} 
+                      id="phone_number" 
+                      placeholder="Phone Number"
+                      value={this.state.phone_number} 
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.phone_number_error}
+                    />
+                  </div>
+                  <div className="col">
+                    <TextField 
+                      className={`${this.state.email_error ? "is-invalid" : ""}`}
+                      id="email" 
+                      type="email"
+                      placeholder="Email" 
+                      value={this.state.email} 
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.email_error}
+                      />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <TextField 
+                      className={`${this.state.password_error ? "is-invalid" : ""}`}
+                      id="password" 
+                      type="password"
+                      placeholder="Password" 
+                      value={this.state.password}
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.password_error}
+                    />
+                  </div>
+                  <div className="col">
+                    <TextField 
+                      className={`${this.state.confirm_password_error ? "is-invalid" : ""}`}
+                      id="confirm_password" 
+                      type="password"
+                      placeholder="Confirm Password" 
+                      value={this.state.confirm_password}
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.confirm_password_error}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <TextField
+                      className={`${this.state.zip_code_error ? "is-invalid" : ""}`} 
+                      id="zip_code" 
+                      placeholder="Zip Code" 
+                      value={this.state.zip_code}
+                      onChange={e => this.change(e)} 
+                      errorText={this.state.zip_code_error}
+                    />
+                  </div>
+                </div>
 
-							<div className="text-center">
-								<button className="btn btn-outline-secondary mr-2 mt-4 btn-half-width" onClick={this.goBackStep}>Go Back</button>
-								<button className="btn btn-primary mt-4 btn-half-width" onClick={e => this.SubmitForm(e)}>Submit</button>
-							</div>
-						</div>
-					}
-				</div>
+                {this.state.error && 
+                  <div className="alert alert-danger mt-4" role="alert">
+                    <small>{this.state.error}</small>
+                  </div>
+                }  
+
+                <div className="text-center">
+                  <button className="btn btn-outline-secondary mr-2 mt-4 btn-half-width" onClick={this.goBackStep}>Go Back</button>
+                  <button className="btn btn-primary mt-4 btn-half-width" onClick={e => this.SubmitForm(e)}>Submit</button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
       </div>
     )  
   }

@@ -47,46 +47,48 @@ class PasswordChange extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <div className="form__wrapper active">
-          <div className="fade-wrapper ">
-            <h2 className="form-title-login mb-4">Update new Password</h2>
-            <TextField 
-              id="password" 
-              name="password"
-              placeholder="Enter the new Password"
-              value={this.state.password}
-              onChange={e => this.change(e)}
-            />
+        <div className="layout-page">
+          <div className="form__wrapper active">
+            <div className="fade-wrapper ">
+              <h2 className="form-title-login mb-4">Update new Password</h2>
+              <TextField 
+                id="password" 
+                name="password"
+                placeholder="Enter the new Password"
+                value={this.state.password}
+                onChange={e => this.change(e)}
+              />
 
-            <TextField 
-              id="confirm_password"
-              name="confirm_password"
-              placeholder="Confirm your password"
-              value={this.state.confirm_password}
-              onChange={e => this.change(e)}
-            />
+              <TextField 
+                id="confirm_password"
+                name="confirm_password"
+                placeholder="Confirm your password"
+                value={this.state.confirm_password}
+                onChange={e => this.change(e)}
+              />
 
-            {error ? 
-              <div className="alert alert-danger mt-4" role="alert">
-                { error && <small>{error.message}</small> }
-              </div> : null
-            }
+              {error ? 
+                <div className="alert alert-danger mt-4" role="alert">
+                  { error && <small>{error.message}</small> }
+                </div> : null
+              }
 
-            {success ? 
-              <div className="alert alert-success mt-4" role="alert">
-                Your password is successful updated.
-              </div> : null
-            }
+              {success ? 
+                <div className="alert alert-success mt-4" role="alert">
+                  Your password is successful updated.
+                </div> : null
+              }
 
-            <button 
-              disabled={isSubmitValid} 
-              className="w-100 btn btn-primary mt-4"
-              type="submit"
-            >
-              Update
-            </button>
+              <button 
+                disabled={isSubmitValid} 
+                className="w-100 btn btn-primary mt-4"
+                type="submit"
+              >
+                Update
+              </button>
+            </div>
           </div>
-        </div>  
+        </div>    
       </form>  
     );
   }

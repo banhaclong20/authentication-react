@@ -396,7 +396,7 @@ class SellVehicle extends Component {
     }
     
     return (
-      <div className="container sell-page" style={{maxWidth: '700px', marginTop: '4em', marginBottom: '4em'}}>
+      <div className="container sell-page" style={{maxWidth: '700px', marginTop: '4em', marginBottom: '4em', minHeight: '60vh'}}>
           <h2 className="form-title mb-2">SELL YOUR MOTORCYCLE</h2>
           <p className="text-center">Enter Your Vehicle's Information and Get a Cash Offer in Minutes.</p>
           <div className="step-tittle">
@@ -607,7 +607,7 @@ class SellVehicle extends Component {
                   </div>
 
                   {
-                    user == "" ? 
+                    user === "" ? 
                     <div className="col-12 col-md-12">
                       <TextArea  
                         id="more_info"

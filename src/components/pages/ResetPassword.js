@@ -50,40 +50,42 @@ class ResetPass extends React.Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <div className="form__wrapper active">
-          <div className="fade-wrapper ">
-            <h2 className="form-title-login mb-4">Forgot your Password?</h2>
-            <div className="text-center small mb-4 text-muted">Enter your email address and we will send you a link to reset your password.</div>
-            <TextField 
-              label="Email Address" 
-              id="email" 
-              name="email"
-              placeholder="Enter your email"
-              value={this.state.email}
-              onChange={e => this.change(e)}
-            />
+        <div className="layout-page">
+          <div className="form__wrapper active">
+            <div className="fade-wrapper ">
+              <h2 className="form-title-login mb-4">Forgot your Password?</h2>
+              <div className="text-center small mb-4 text-muted">Enter your email address and we will send you a link to reset your password.</div>
+              <TextField 
+                label="Email Address" 
+                id="email" 
+                name="email"
+                placeholder="Enter your email"
+                value={this.state.email}
+                onChange={e => this.change(e)}
+              />
 
-            {error ? 
-              <div className="alert alert-danger mt-4" role="alert">
-                { error && <small>{error.message}</small> }
-              </div> : null
-            }
+              {error ? 
+                <div className="alert alert-danger mt-4" role="alert">
+                  { error && <small>{error.message}</small> }
+                </div> : null
+              }
 
-            {this.state.success ? 
-              <div className="alert alert-success mt-4" role="alert">
-                Check your email to reset the password
-              </div> : null
-            }
+              {this.state.success ? 
+                <div className="alert alert-success mt-4" role="alert">
+                  Check your email to reset the password
+                </div> : null
+              }
 
-            <button 
-              disabled={isSubmitValid} 
-              className="w-100 btn btn-primary mt-4"
-              type="submit"
-            >
-              Submit
-            </button>
+              <button 
+                disabled={isSubmitValid} 
+                className="w-100 btn btn-primary mt-4"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
-        </div>  
+        </div>    
       </form>  
     );
   }
