@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Slider from 'rc-slider';
-import { firebase, auth, db } from '../../firebase/';
+import { firebase, db } from '../../firebase/';
 
 import CreateAccount from '../pages/CreateAccountSellPage';
 import TextField from '../ui/TextField';
 import ColorSelect from '../ui/ColorSelect';
 import Radio from '../ui/Radio';
 import TextArea from '../ui/TextArea';
+import PreviewImage from '../ui/PreviewImage';
 
 import 'rc-slider/assets/index.css';
 import { Check, ChevronRight, ChevronLeft, Truck } from 'react-feather';
@@ -25,6 +26,8 @@ const marks = {
 
 const INITIAL_STATE = {
   currentStep: 0,
+  nextStep: null,
+  preStep: null,
   uid: '',
   user: '',
   data: [],
@@ -57,6 +60,8 @@ const INITIAL_STATE = {
   more_info: '',
   note: '',
   error: '',
+  image: 'Please upload image',
+  imageUrl: null,
 }
 
 class SellVehicle extends Component {
@@ -89,7 +94,7 @@ class SellVehicle extends Component {
       e.preventDefault();
     } else if (currentStep < 4 && goStep === true) {
       this.setState({
-        currentStep: currentStep + 1
+        currentStep: currentStep + 1,
       });
     }
 
@@ -140,17 +145,20 @@ class SellVehicle extends Component {
       tire_condition_str, 
       accessories, 
       services, 
-      more_info
+      more_info,
+      image,
     } = this.state;
     const err = this.validateStep1();
     const { history } = this.props;
 
     if (!err) {
-      db.submitBike(bikeId, uid, user, make, model, model_type, year, price, vin, mileage, color, loan, bank_name, loan_balance, physical_condition_str, mechanical_condition_str, tire_condition_str, accessories, services, more_info)
-        .then(() => {
-          this.setState(() => ({ ...INITIAL_STATE }));
-          history.push('./');
-        })
+      firebase.storage.child(`bikes/${image.name}_${new Date().getTime()}`).put(image).then((snapshot) => {
+        db.submitBike(bikeId, uid, user, make, model, model_type, year, price, vin, mileage, color, loan, bank_name, loan_balance, physical_condition_str, mechanical_condition_str, tire_condition_str, accessories, services, more_info, snapshot.metadata.downloadURLs[0])
+          .then(() => {
+            this.setState(() => ({ ...INITIAL_STATE }));
+            history.push('./');
+          })
+      });  
     }  
 
     e.preventDefault();
@@ -202,6 +210,7 @@ class SellVehicle extends Component {
     this.setState({
       data: '',
       make: '',
+      model: '',
       loan: '',
     })
   }
@@ -242,6 +251,19 @@ class SellVehicle extends Component {
     });
   }
 
+  processImage = e => {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      console.log(file);
+      this.setState({
+        image: file,
+        imageUrl: reader.result
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+
   validateStep1 = () => {
     let isErr = false;
     const errors = {
@@ -265,12 +287,6 @@ class SellVehicle extends Component {
       isErr = true;
       errors.color_error = 'Select the color';
     }
-
-    // if (!this.state.loan) {
-    //   isErr = true;
-    //   errors.loan_error = 'Enter your loan number';
-    // }
-
 
     // TODO - specific Validation like isNumber, isEmail or email & confirm email 
     // should be the same value
@@ -343,11 +359,13 @@ class SellVehicle extends Component {
 
   render() {
     const {
-      isLoggedIn,
+      user,
       vin,
+      vin_error,
       showVINError,
       data, 
       make,
+      model,
       currentStep, 
       mileage,
       color, 
@@ -358,36 +376,53 @@ class SellVehicle extends Component {
       accessories,
       services,
       more_info,
+      image,
+      imageUrl
     } = this.state;
+    
     console.log(this.state);
 
-    // const allowContinueStep2 = color !== '' && mileage !== '' && loan !== '';
-    const allowContinueStep4 = accessories !== '' && services !== '' && more_info !== '';
+    const nextStep = currentStep + 1;
+    const preStep = currentStep - 1;
 
+    console.log('currentStep: ', currentStep, 'nextStep: ', nextStep, 'pre step: ', preStep);
+
+    let allowContinueStep4;
+
+    if (user) {
+      allowContinueStep4 = accessories !== '' && services !== '';
+    } else {
+      allowContinueStep4 = accessories !== '' && services !== '' && more_info !== '';
+    }
+    
     return (
-      <div className="container sell-page" style={{maxWidth: '700px', marginTop: "4em"}}>
+      <div className="container sell-page" style={{maxWidth: '700px', marginTop: '4em', marginBottom: '4em'}}>
           <h2 className="form-title mb-2">SELL YOUR MOTORCYCLE</h2>
           <p className="text-center">Enter Your Vehicle's Information and Get a Cash Offer in Minutes.</p>
           <div className="step-tittle">
             <div className="step-span step-1">
-              <Check />
-              <span>Basic Info</span>
+              <div>
+                <span className={`${currentStep === 0 ? 'number active' : 'number'}`}>1</span>
+                <span className={`${currentStep === 0 ? 'step-text-active' : ''}`}>Basic Info</span>
+              </div>
             </div>
             <div className="step-span step-2">
-              <span className="number">2</span>
-              <span>Condition</span> 
+              <div>
+                <span className={`${currentStep === 1 ? 'number active' : 'number'}`}>2</span>
+                <span className={`${currentStep === 1 ? 'step-text-active' : ''}`}>Condition</span>
+              </div>
             </div>
             <div className="step-span step-3">
-              <span className="number">3</span>
-              <span>Accessories & Services</span>
+              <span className={`${currentStep === 2 ? 'number active' : 'number'}`}>3</span>
+              <span className={`${currentStep === 2 ? 'step-text-active' : ''}`}>Accessories & Services</span>
             </div>
             <div className="step-span step-4">
-              <span className="number">4</span>
-              <span>Photo</span> 
+              <span className={`${currentStep === 3 ? 'number active' : 'number'}`}>4</span>
+              <span className={`${currentStep === 3 ? 'step-text-active' : ''}`}>Photo</span> 
             </div>
             <div className="step-span step-5">
-              <span className="number">5</span>
-              <span>Finish</span>
+              <span className={`${currentStep === 4 ? 'number active' : 'number'}`}>5</span>
+              <span className={`${currentStep === 4 ? 'step-text-active' : ''}`}>Finish</span>
             </div>
           </div>
 					{currentStep === 0 &&
@@ -396,12 +431,12 @@ class SellVehicle extends Component {
                 <div className="row mb-4 mt-4">
                   <div className="col-12 col-md-9">
                       <TextField 
-                        className={`${this.state.vin_error ? "is-invalid" : ""}`} 
+                        className={`${vin_error ? "is-invalid" : ""}`} 
                         id="vin" 
                         placeholder="VIN" 
-                        value={this.state.vin}
+                        value={vin}
                         onChange={e => this.change(e)} 
-                        errorText={this.state.vin_error}
+                        errorText={vin_error}
                       />
                     </div> 
                     <div className="col-12 col-md-3">
@@ -477,14 +512,14 @@ class SellVehicle extends Component {
                 {loan === "yes" && 
                   <div className="row mb-3">
                     <div className="col-12 col-md-6">
-                        <TextField 
-                          className={`${this.state.bank_name_error ? "is-invalid" : ""}`} 
-                          id="bank_name" 
-                          placeholder="Name of the bank the loan is through" 
-                          value={this.state.bank_name}
-                          onChange={e => this.change(e)} 
-                          errorText={this.state.bank_name_error}
-                        />
+                      <TextField 
+                        className={`${this.state.bank_name_error ? "is-invalid" : ""}`} 
+                        id="bank_name" 
+                        placeholder="Name of the bank the loan is through" 
+                        value={this.state.bank_name}
+                        onChange={e => this.change(e)} 
+                        errorText={this.state.bank_name_error}
+                      />
                     </div>
                     <div className="col-12 col-md-6">
                       <TextField 
@@ -499,14 +534,17 @@ class SellVehicle extends Component {
                   </div>
                 } 
 							</div>
-              <div className="d-flex">
-                <button 
-                  className="btn btn-primary ml-auto btn-block" 
-                  onClick={e => this.goToStep2(e)}
-                >
-                  Continue <ChevronRight />
-                </button>
-              </div>
+              {model && 
+                <div className="d-flex">
+                  <button 
+                    className="btn btn-primary ml-auto btn-block" 
+                    onClick={e => this.goToStep2(e)}
+                  >
+                    Continue <ChevronRight />
+                  </button>
+                </div>
+              }
+
 						</div>
           }
           
@@ -567,16 +605,21 @@ class SellVehicle extends Component {
                       num="4"
                     />
                   </div>
-                  <div className="col-12 col-md-12">
-                    <TextArea  
-                      id="more_info"
-                      name="more_info"
-                      label="Anything else you would like to add about your bike?"
-                      onChange={e => this.onChangeTextArea(e)}
-                      value={this.state.more_info}
-                      num="4"
-                    />
-                  </div>        
+
+                  {
+                    user == "" ? 
+                    <div className="col-12 col-md-12">
+                      <TextArea  
+                        id="more_info"
+                        name="more_info"
+                        label="Anything else you would like to add about your bike?"
+                        onChange={e => this.onChangeTextArea(e)}
+                        value={this.state.more_info}
+                        num="4"
+                      />
+                    </div> : 
+                    null
+                  }        
                 </div>
 
                 {this.state.error && 
@@ -604,14 +647,24 @@ class SellVehicle extends Component {
               <div className="step-content" style={{ marginBottom: '1em', padding: '15px 20px 20px'}}>
                 <div className="row">
                   <div className="col-12 col-md-12 mb-4">
-                  Upload 6 photos of your motorcycle by clicking on each image below (Optional).
+                    <p className="text-muted text-center" style={{ fontSize: '0.9em'}}>Upload photos of your motorcycle by clicking on each image below (Optional).</p>
+                    <hr />
+                    <div className="custom-file">
+                      <input 
+                        id="image"
+                        type="file" 
+                        name="image"
+                        className="custom-file-input"
+                        placeholder="Upload Bike Image" 
+                        value={this.state.image_front}
+                        onChange={e => this.processImage(e)} 
+                      />
+                      <label className="custom-file-label" style={{ marginRight: 0 }} htmlFor="image">Choose image</label>
+                    </div>
                   </div>
-                  <div className="col-12 col-md-12 mb-4">
-                   
-                  </div>
-                  <div className="col-12 col-md-12">
-                    
-                  </div>        
+                  <div className="col-12 col-md-12 mb-2 text-center">
+                    <PreviewImage image={image} imageURL={imageUrl} />
+                  </div>      
                 </div>
 
                 {this.state.error && 
@@ -638,8 +691,20 @@ class SellVehicle extends Component {
           {currentStep === 4 &&
             <div className="section-step note-container">
               <div className="step-content" style={{ marginBottom: '1em', padding: '15px 20px 20px'}}>
-                <CreateAccount />
-
+                {
+                  user !== "" ? 
+                  <div className="col-12 col-md-12">
+                    <TextArea  
+                      id="more_info"
+                      name="more_info"
+                      label="Anything else you would like to add about your bike?"
+                      onChange={e => this.onChangeTextArea(e)}
+                      value={this.state.more_info}
+                      num="4"
+                    />
+                  </div> : 
+                  <CreateAccount />
+                } 
                 {this.state.error && 
                   <div className="alert alert-danger mt-4" role="alert">
                     <small>{this.state.error}</small>

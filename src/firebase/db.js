@@ -12,7 +12,7 @@ export const createUser = (id, userType, first_name, last_name, email, phone_num
   });
 
 // Sell Page 
-export const submitBike = (bikeId, uid, user, make, model, model_type, year, price, vin, mileage, color, loan, bank_name, loan_balance, physical_condition_str, mechanical_condition_str, tire_condition_str, accessories, services, more_info) => 
+export const submitBike = (bikeId, uid, user, make, model, model_type, year, price, vin, mileage, color, loan, bank_name, loan_balance, physical_condition_str, mechanical_condition_str, tire_condition_str, accessories, services, more_info, pics) => 
   db.ref(`bikes/${bikeId}`).set({
     uid, 
     user, 
@@ -32,7 +32,8 @@ export const submitBike = (bikeId, uid, user, make, model, model_type, year, pri
     tire_condition_str, 
     accessories, 
     services, 
-    more_info
+    more_info,
+    pics
   });  
 
 export const onceGetUsers = () =>

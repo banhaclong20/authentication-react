@@ -5,7 +5,7 @@ const config = {
   authDomain: "rumbleon-auth.firebaseapp.com",
   databaseURL: "https://rumbleon-auth.firebaseio.com",
   projectId: "rumbleon-auth",
-  storageBucket: "",
+  storageBucket: "rumbleon-auth.appspot.com",
   messagingSenderId: "953789123507"
 };
 
@@ -15,12 +15,14 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 const auth = firebase.auth();
+const storage = firebase.storage().ref();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
 
 export {
   db,
   auth,
+  storage,
   googleProvider,
   facebookProvider,
 }

@@ -468,3 +468,12 @@ h6 {
   color: #05c48e;
   text-decoration: none !important;
 }
+
+.active {
+  background: #0d6d51;
+}
+
+.step-text-active {
+  color: #0d6d51;
+  font-weight: 500;
+}

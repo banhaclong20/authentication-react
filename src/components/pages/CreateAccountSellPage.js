@@ -214,7 +214,7 @@ class CreateAccount extends Component {
         <div className="row mt-4">
           <div className="col">
             <p style={{fontSize: '0.8em', color: '#565656' }}>
-              By signing up, I agree to RumbleOn’s <a className="custom-link" href="https://www.rumbleon.com/content/pdfs/Terms_and_Conditions.pdf?__hstc=133935633.dcbe8e7451ab10e90269b7302392749a.1517452398852.1523567759583.1523998095196.159&amp;__hssc=133935633.13.1523998095196&amp;__hsfp=3183743550" target="_blank">Terms</a> and Privacy Policy. I also authorize RumbleOn and its affiliates to text or call me. We may also use your phone number with an auto-dialer.
+              By signing up, I agree to RumbleOn’s <a className="custom-link" href="https://www.rumbleon.com/content/pdfs/Terms_and_Conditions.pdf?__hstc=133935633.dcbe8e7451ab10e90269b7302392749a.1517452398852.1523567759583.1523998095196.159&amp;__hssc=133935633.13.1523998095196&amp;__hsfp=3183743550" target="_blank" rel="noopener noreferrer">Terms</a> and Privacy Policy. I also authorize RumbleOn and its affiliates to text or call me. We may also use your phone number with an auto-dialer.
             </p>
           </div>    
         </div>
