@@ -11,7 +11,7 @@ import TextArea from '../ui/TextArea';
 import PreviewImage from '../ui/PreviewImage';
 
 import 'rc-slider/assets/index.css';
-import { Check, ChevronRight, ChevronLeft, Truck } from 'react-feather';
+import { ChevronRight, ChevronLeft, Truck } from 'react-feather';
 import bike_img from '../../assets/design-bike.png';
  
 const style = { width: 520, margin: '20px 50px 50px 50px' };
@@ -62,12 +62,13 @@ const INITIAL_STATE = {
   error: '',
   image: 'Please upload image',
   imageUrl: null,
+  image_right_side: 'Please upload image',
+  imageUrl_right: null
 }
 
 class SellVehicle extends Component {
 
   state = { 
-    bikeId: Math.round(+new Date()/1000),
     ...INITIAL_STATE 
   };
 
@@ -123,10 +124,8 @@ class SellVehicle extends Component {
     this.updateTireCondition();
   }
 
-
-  SubmitForm = (e) => {
+  async SubmitForm(e) {
     const { 
-      bikeId,
       uid, 
       user, 
       make, 
@@ -147,13 +146,17 @@ class SellVehicle extends Component {
       services, 
       more_info,
       image,
+      image_right_side
     } = this.state;
     const err = this.validateStep1();
     const { history } = this.props;
 
     if (!err) {
-      firebase.storage.child(`bikes/${image.name}_${new Date().getTime()}`).put(image).then((snapshot) => {
-        db.submitBike(bikeId, uid, user, make, model, model_type, year, price, vin, mileage, color, loan, bank_name, loan_balance, physical_condition_str, mechanical_condition_str, tire_condition_str, accessories, services, more_info, snapshot.metadata.downloadURLs[0])
+
+      await this.uploadImageRightSide();
+
+      await firebase.storage.child(`bikes/${image.name}_${new Date().getTime()}`).put(image).then((snapshot) => {
+        db.submitBike(vin, uid, user, make, model, model_type, year, price, vin, mileage, color, loan, bank_name, loan_balance, physical_condition_str, mechanical_condition_str, tire_condition_str, accessories, services, more_info, snapshot.metadata.downloadURLs[0], image_right_side)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }));
             history.push('./');
@@ -162,6 +165,16 @@ class SellVehicle extends Component {
     }  
 
     e.preventDefault();
+  }
+
+  uploadImageRightSide = () => {
+    const { image_right_side } = this.state;
+
+    firebase.storage.child(`bikes/${new Date().getTime()}`).put(image_right_side).then((snapshot) => {
+      this.setState({
+        image_right_side: snapshot.metadata.downloadURLs[0]
+      })
+    });
   }
 
   goBackStep = () => {
@@ -264,6 +277,18 @@ class SellVehicle extends Component {
     reader.readAsDataURL(file);
   }
 
+  processimage_right_side = e => {
+    let reader = new FileReader();
+    let file1 = e.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        image_right_side: file1,
+        imageUrl_right: reader.result
+      });
+    };
+    reader.readAsDataURL(file1);
+  }
+
   validateStep1 = () => {
     let isErr = false;
     const errors = {
@@ -362,12 +387,10 @@ class SellVehicle extends Component {
       user,
       vin,
       vin_error,
-      showVINError,
       data, 
       make,
       model,
       currentStep, 
-      mileage,
       color, 
       loan, 
       physical_condition,
@@ -646,9 +669,11 @@ class SellVehicle extends Component {
             <div className="section-step note-container">
               <div className="step-content" style={{ marginBottom: '1em', padding: '15px 20px 20px'}}>
                 <div className="row">
-                  <div className="col-12 col-md-12 mb-4">
-                    <p className="text-muted text-center" style={{ fontSize: '0.9em'}}>Upload photos of your motorcycle by clicking on each image below (Optional).</p>
+                  <div className="col-12 col-md-12 mb-2">
+                    <p className="text-muted" style={{ fontSize: '0.9em'}}>Upload photos of your motorcycle by clicking on each image below (Optional).</p>
                     <hr />
+                  </div>
+                  <div className="col-12 col-md-6 mb-4">
                     <div className="custom-file">
                       <input 
                         id="image"
@@ -659,8 +684,33 @@ class SellVehicle extends Component {
                         value={this.state.image_front}
                         onChange={e => this.processImage(e)} 
                       />
-                      <label className="custom-file-label" style={{ marginRight: 0 }} htmlFor="image">Choose image</label>
+                      <label className="custom-file-label" style={{ marginRight: 0 }} htmlFor="image">Front Image</label>
                     </div>
+                    <button 
+                      className="btn btn-secondary btn-block mt-3" 
+                      onClick={e => this.uploadImageFront(e)}
+                    >
+                      Save Front Image <ChevronRight />
+                    </button>
+                  </div>  
+                  <div className="col-12 col-md-6 mb-4">
+                    <div className="custom-file">
+                      <input 
+                        id="image_right_side"
+                        type="file" 
+                        name="image"
+                        className="custom-file-input"
+                        placeholder="Upload Bike Image 1" 
+                        onChange={e => this.processimage_right_side(e)} 
+                      />
+                      <label className="custom-file-label" style={{ marginRight: 0 }} htmlFor="image">Choose Right Side Image</label>
+                    </div>
+                    <button 
+                      className="btn btn-secondary btn-block mt-3" 
+                      onClick={e => this.uploadImageRightSide(e)}
+                    >
+                      Save Right Side Image <ChevronRight />
+                    </button>
                   </div>
                   <div className="col-12 col-md-12 mb-2 text-center">
                     <PreviewImage image={image} imageURL={imageUrl} />

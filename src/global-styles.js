@@ -7,4 +7,8 @@ injectGlobal`
     margin: 0;
     font-family: "Roboto", Arial;
   }
+
+  p {
+    font-family: "Roboto", Arial;
+  }
 `

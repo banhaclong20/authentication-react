@@ -2,8 +2,8 @@ import React from 'react';
 
 const Home = () => {
   return (
-    <section className="section-intro bg-secondary text-white text-center">
-      <div className="container d-flex flex-column"  style={{minHeight: '80vh'}}>
+    <section className="section-intro bg-home text-white text-center">
+      <div className="container d-flex flex-column" style={{minHeight: '80vh'}}>
         <div className="row mt-auto mb-auto">
           <div className="col-lg-8 col-sm-12 text-center mx-auto">
             <h2 className="form-title mb-2" style={{ fontSize: '3em' }}>BUY, SELL, & TRADE MOTORCYCLES</h2>

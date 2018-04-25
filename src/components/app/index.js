@@ -10,14 +10,19 @@ import Header from '../header';
 import Footer from '../footer';
 import AccountDetail from '../account';
 import PasswordChange from '../pages/PasswordChange';
+import SellVehicle from '../pages/SellVehicle';
+import BuyVehicle from '../pages/BuyVehicle';
+import DetailPage from '../pages/DetailPage';
+import ScrollTop from '../pages/ScrollTop';
 
 import withAuthentication from '../auth/withAuthentication';
-import SellVehicle from '../pages/SellVehicle';
+
 
 const App = () => (
   <Router>
-    <div>
-      <Header />
+    <ScrollTop>
+      <div>
+        <Header />
         <Wrapper>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -27,10 +32,13 @@ const App = () => (
             <Route path="/account-detail" component={AccountDetail} />
             <Route path="/password-change" component={PasswordChange} />
             <Route path="/sell-vehicle" component={SellVehicle} />
+            <Route path="/buy-vehicle" component={BuyVehicle} />
+            <Route path="/:id" component={DetailPage} />
           </Switch>  
         </Wrapper>
-      <Footer /> 
-    </div>  
+        <Footer /> 
+      </div>
+    </ScrollTop>    
   </Router>  
 );
 

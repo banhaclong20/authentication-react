@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import { SignOut } from '../../firebase/auth';
 import AuthUserContext from '../auth/AuthUserContext';
@@ -19,8 +19,8 @@ const HeaderAuth = () =>
   <Nav>
     <div className="logo">
       <Link to="/"><div><img className="logo" src={logo} alt="RumbleOn logo" /></div></Link>
-      <Link to="/sell-vehicle" className="sell-menu"><span>Sell</span></Link>
-      <Link to="/buy-vehicle" className="sell-menu"><span>Buy</span></Link>
+      <NavLink to="/sell-vehicle" className="sell-menu" activeClassName="selected"><span>Sell</span></NavLink>
+      <NavLink to="/buy-vehicle" className="sell-menu" activeClassName="selected"><span>Buy</span></NavLink>
     </div>
     <div className="nav">
       <ul>
@@ -29,7 +29,7 @@ const HeaderAuth = () =>
         </li>
         <li>
           {/* <span className="ml-3 text-light small">Welcome ...</span> */}
-          <button className="btn btn-outline-success" onClick={() => SignOut()}>
+          <button className="btn btn-logout" onClick={() => SignOut()}>
             Sign Out
           </button>
         </li>       

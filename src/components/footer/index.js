@@ -9,17 +9,17 @@ const Footer = () => {
         <div className="row text-center text-xs-center text-sm-left text-md-left">
           <div className="col-xs-12 col-sm-4 col-md-4">
             <ul className="list-unstyled quick-links">
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>SELL</a></li>
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>BUY</a></li>
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>FINANCE</a></li>
+              <li><a href="#0">SELL</a></li>
+              <li><a href="#0">BUY</a></li>
+              <li><a href="#0">FINANCE</a></li>
             </ul>
           </div>
           <div className="col-xs-12 col-sm-4 col-md-4">
             <ul className="list-unstyled quick-links">
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>Careers</a></li>
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>Contact Us</a></li>
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>Investor Relations</a></li>
-              <li><a href="#0"><i className="fa fa-angle-double-right"></i>About Us</a></li>
+              <li><a href="#0">Careers</a></li>
+              <li><a href="#0">Contact Us</a></li>
+              <li><a href="#0">Investor Relations</a></li>
+              <li><a href="#0">About Us</a></li>
             </ul>
           </div>
           <div className="col-xs-12 col-sm-4 col-md-4">
